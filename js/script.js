@@ -5,14 +5,13 @@
 // 2- applicare l'autoplay allo slider: ogni 3 secondi, cambia immagine automaticamente
 // 3- quando il mouse va in hover sullo slider, bloccare l'autoplay e farlo riprendere quando esce
 
-// console.log(slides);
-
 const {createApp} = Vue;
 
 createApp ({
     data() {
         return {
             activeSlide: 0,
+            autoPlayInterval: null,
             slides: [
                 {
                     image: 'img/01.webp',
@@ -47,6 +46,9 @@ createApp ({
             ]
         }
     },
+    mounted() {
+        this.startAutoplay();
+    },
     methods: {
         showNext() {
             if(this.activeSlide < this.slides.length -1) {
@@ -62,7 +64,14 @@ createApp ({
                 this.activeSlide = this.slides.length -1;
             }
         },
-
-
+        showActiveImage(index) {
+            this.activeSlide = index;
+        },
+        startAutoplay() {
+            this.autoPlayInterval = setInterval(this.showNext, 3000);
+        },
+        stopAutoplay() {
+            clearInterval(this.autoPlayInterval);
+        }
     }
 }).mount("#app");

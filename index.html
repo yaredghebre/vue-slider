@@ -20,7 +20,7 @@
             <div class="slider-wrapper" tabindex="0">
 
                 <!-- Immagini Carosello -->
-                <div class="item">
+                <div class="item" @mouseover="stopAutoplay" @mouseleave="startAutoplay">
                     <img :src="slides[activeSlide].image" :alt="slides[activeSlide].alt" />
                     <div class="text">
                         <h3>{{slides[activeSlide].title}}</h3>
@@ -36,7 +36,7 @@
                     <div class="next" @click="showNext"></div>
                     <!-- /buttons -->
 
-                    <div class="thumb" v-for="item in slides">
+                    <div class="thumb" @click="showActiveImage(index)" v-for="(item, index) in slides" :class="index === activeSlide ? 'active' : '' ">
                         <img :src="item.image" :alt="item.alt" />
                     </div>
 
